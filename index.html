@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Her Little Pinterest</title>
+    <meta
+      name="description"
+      content="A soft personal moodboard of photos, flowers, tiny notes, and compliments."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="#top" class="brand">Her Little Pinterest</a>
+      <nav aria-label="Sections">
+        <a href="#moodboard">Board</a>
+        <a href="#flowers">Flowers</a>
+        <a href="#scrapbook">Notes</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img
+          class="hero-bg"
+          src="./assets/scrapbook-hero.png"
+          alt="Soft scrapbook paper with blush flowers and sage leaves"
+        />
+        <div class="hero-copy">
+          <p class="eyebrow">a private-feeling moodboard</p>
+          <h1 id="hero-title">A little corner of the internet for you</h1>
+          <p>
+            Photos, flowers, tiny notes, and the kind of compliments that felt
+            worth saving properly.
+          </p>
+          <a class="primary-link" href="#moodboard">open the board</a>
+        </div>
+      </section>
+
+      <section class="intro-strip" aria-label="Tiny notes">
+        <p>main character energy</p>
+        <p>soft moments, saved</p>
+        <p>quietly special</p>
+        <p>certified cute</p>
+      </section>
+
+      <section class="section-wrap" id="moodboard">
+        <div class="section-heading">
+          <p class="eyebrow">the board</p>
+          <h2>Personal Pinterest, but softer.</h2>
+        </div>
+        <div class="masonry" id="moodboard-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="section-wrap flower-section" id="flowers">
+        <div class="section-heading">
+          <p class="eyebrow">flower language</p>
+          <h2>Pick a flower. Get a tiny truth.</h2>
+        </div>
+        <div class="flower-grid" id="flower-grid"></div>
+      </section>
+
+      <section class="section-wrap compliment-section">
+        <div class="section-heading">
+          <p class="eyebrow">small evidence</p>
+          <h2>Reasons you are nice to have around.</h2>
+        </div>
+        <div class="compliment-grid" id="compliment-grid"></div>
+      </section>
+
+      <section class="section-wrap scrapbook-section" id="scrapbook">
+        <div class="section-heading">
+          <p class="eyebrow">saved properly</p>
+          <h2>Tiny scrapbook notes.</h2>
+        </div>
+        <div class="scrapbook" id="scrapbook-grid"></div>
+      </section>
+
+      <section class="final-note">
+        <p class="eyebrow">that is the page</p>
+        <h2>Just a small collection for someone who feels special.</h2>
+      </section>
+    </main>
+
+    <dialog class="memory-dialog" id="memory-dialog">
+      <button class="dialog-close" type="button" aria-label="Close">×</button>
+      <img id="dialog-image" alt="" />
+      <div>
+        <p class="eyebrow" id="dialog-vibe"></p>
+        <h3 id="dialog-title"></h3>
+        <p id="dialog-note"></p>
+      </div>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./config.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

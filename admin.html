@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | Her Little Pinterest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="admin-body">
+    <main class="admin-shell">
+      <section class="admin-panel">
+        <p class="eyebrow">private editor</p>
+        <h1>Update her board</h1>
+        <p class="admin-muted">
+          Upload a photo, add a tiny note, choose a flower, and it appears on
+          the public page.
+        </p>
+
+        <form class="auth-form" id="auth-form">
+          <label for="email">Email</label>
+          <div class="inline-form">
+            <input id="email" name="email" type="email" placeholder="your@email.com" required />
+            <button class="primary-button" type="submit">send login link</button>
+          </div>
+          <p class="form-status" id="auth-status"></p>
+        </form>
+
+        <form class="upload-form is-disabled" id="upload-form">
+          <label for="photo">Photo</label>
+          <input id="photo" name="photo" type="file" accept="image/*" required />
+
+          <label for="title">Card title</label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            maxlength="80"
+            placeholder="main character energy"
+            required
+          />
+
+          <label for="note">Tiny note</label>
+          <textarea
+            id="note"
+            name="note"
+            maxlength="260"
+            placeholder="this photo deserved its own corner"
+            required
+          ></textarea>
+
+          <div class="form-grid">
+            <label>
+              Flower
+              <select name="flower">
+                <option value="Tulip">Tulip</option>
+                <option value="Daisy">Daisy</option>
+                <option value="Peony">Peony</option>
+                <option value="Rose">Rose</option>
+                <option value="Lily">Lily</option>
+              </select>
+            </label>
+            <label>
+              Vibe
+              <select name="vibe">
+                <option value="soft">soft</option>
+                <option value="iconic">iconic</option>
+                <option value="sunshine">sunshine</option>
+                <option value="pretty chaos">pretty chaos</option>
+                <option value="quietly special">quietly special</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="checkbox-line">
+            <input type="checkbox" name="is_featured" />
+            Feature this card near the top
+          </label>
+
+          <button class="primary-button" type="submit">add to board</button>
+          <p class="form-status" id="upload-status"></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./config.js"></script>
+    <script src="./admin.js"></script>
+  </body>
+</html>
