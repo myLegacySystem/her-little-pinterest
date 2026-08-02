@@ -2,105 +2,276 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Her Little Pinterest</title>
     <meta
       name="description"
       content="A soft personal moodboard of photos, flowers, tiny notes, and compliments."
     />
+    <meta name="theme-color" content="#1f0a18" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Jost:wght@300..600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- hero photo: smallest useful variant, fetched with the stylesheet -->
+    <link
+      rel="preload"
+      as="image"
+      href="./assets/hero-768.webp"
+      imagesrcset="./assets/hero-768.webp 768w, ./assets/hero-1280.webp 1280w"
+      imagesizes="(min-width: 64em) 400px, 46vw"
+      fetchpriority="high"
+    />
+
     <link rel="stylesheet" href="./styles.css" />
+
+    <script>
+      // Set before first paint so reveal styles apply without a flash.
+      document.documentElement.classList.add("js");
+    </script>
+    <noscript><style>.curtain{display:none}</style></noscript>
   </head>
+
   <body>
-    <header class="site-header">
-      <a href="#top" class="brand">Her Little Pinterest</a>
-      <nav aria-label="Sections">
-        <a href="#moodboard">Board</a>
-        <a href="#flowers">Flowers</a>
-        <a href="#scrapbook">Notes</a>
-      </nav>
+    <div class="curtain" id="curtain" aria-hidden="true">
+      <span class="mark">little pinterest</span>
+    </div>
+    <script>
+      // Failsafe: if the motion module never boots (CDN blocked, parse error),
+      // drop the reveal gate so every section is visible anyway.
+      window.__hlpFallback = setTimeout(function () {
+        document.documentElement.classList.remove("js");
+        document.getElementById("curtain").classList.add("is-gone");
+      }, 2500);
+    </script>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="ambient" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <canvas id="petals" aria-hidden="true"></canvas>
+
+    <header class="site-header" id="site-header">
+      <div class="header-inner">
+        <a href="#top" class="brand" aria-label="Her Little Pinterest — back to top">
+          <span class="brand-mark" aria-hidden="true">h</span>
+          <span class="brand-word">Her Little Pinterest</span>
+        </a>
+        <nav class="site-nav" aria-label="Sections">
+          <a href="#moodboard">board</a>
+          <a href="#flowers">flowers</a>
+          <a href="#scrapbook">notes</a>
+        </nav>
+      </div>
     </header>
 
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <img
-          class="hero-bg"
-          src="./assets/scrapbook-hero.png"
-          alt="Soft scrapbook paper with blush flowers and sage leaves"
-        />
-        <div class="hero-copy">
-          <p class="eyebrow">a private-feeling moodboard</p>
-          <h1 id="hero-title">A little corner of the internet for you</h1>
-          <p>
-            Photos, flowers, tiny notes, and the kind of compliments that felt
-            worth saving properly.
-          </p>
-          <a class="primary-link" href="#moodboard">open the board</a>
+    <main id="main">
+      <!-- ================= HERO ================= -->
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-stage">
+          <div class="hero-medallion" data-reveal style="--reveal-y: 26px">
+            <picture>
+              <source
+                type="image/avif"
+                srcset="
+                  ./assets/hero-768.avif   768w,
+                  ./assets/hero-1280.avif 1280w,
+                  ./assets/hero-1672.avif 1672w
+                "
+                sizes="(min-width: 64em) 400px, 46vw"
+              />
+              <source
+                type="image/webp"
+                srcset="
+                  ./assets/hero-768.webp   768w,
+                  ./assets/hero-1280.webp 1280w,
+                  ./assets/hero-1672.webp 1672w
+                "
+                sizes="(min-width: 64em) 400px, 46vw"
+              />
+              <img
+                src="./assets/hero-768.jpg"
+                width="1672"
+                height="941"
+                alt="Soft scrapbook paper with blush flowers and sage leaves"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
+          </div>
+
+          <div class="hero-card" data-reveal style="--reveal-d: 120ms">
+            <p class="eyebrow">a private-feeling moodboard</p>
+            <h1 id="hero-title">
+              <span class="line-mask"><span>A little corner</span></span>
+              <span class="line-mask"><span style="--line-d: 90ms">of the internet</span></span>
+              <span class="line-mask"
+                ><span class="script-accent" style="--line-d: 180ms">for you</span></span
+              >
+            </h1>
+            <p class="lede">
+              Photos, flowers, tiny notes, and the kind of compliments that felt
+              worth saving properly.
+            </p>
+            <div class="hero-actions">
+              <a class="btn" href="#moodboard">
+                open the board
+                <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a class="btn btn-ghost" href="#scrapbook">the notes</a>
+            </div>
+          </div>
         </div>
+
+        <div class="scroll-cue" aria-hidden="true"><span>scroll</span></div>
       </section>
 
-      <section class="intro-strip" aria-label="Tiny notes">
-        <p>main character energy</p>
-        <p>soft moments, saved</p>
-        <p>quietly special</p>
-        <p>certified cute</p>
-      </section>
+      <!-- ================= MARQUEE ================= -->
+      <div class="marquee" aria-label="Tiny notes">
+        <div class="marquee-track">
+          <div class="marquee-group">
+            <span>main character energy</span>
+            <span>soft moments, saved</span>
+            <span>quietly special</span>
+            <span>certified cute</span>
+          </div>
+          <div class="marquee-group" aria-hidden="true">
+            <span>main character energy</span>
+            <span>soft moments, saved</span>
+            <span>quietly special</span>
+            <span>certified cute</span>
+          </div>
+        </div>
+      </div>
 
-      <section class="section-wrap" id="moodboard">
-        <div class="section-heading">
+      <!-- ================= MOODBOARD ================= -->
+      <section class="section shell" id="moodboard" aria-labelledby="moodboard-title">
+        <div class="section-heading" data-reveal>
           <p class="eyebrow">the board</p>
-          <h2>Personal Pinterest, but softer.</h2>
+          <h2 id="moodboard-title">Personal Pinterest, but&nbsp;softer.</h2>
         </div>
-        <div class="masonry" id="moodboard-grid" aria-live="polite"></div>
+        <div class="masonry" id="moodboard-grid" aria-busy="true">
+          <div class="skeleton pin-skeleton s-1"></div>
+          <div class="skeleton pin-skeleton s-2"></div>
+          <div class="skeleton pin-skeleton s-3"></div>
+          <div class="skeleton pin-skeleton s-2"></div>
+          <div class="skeleton pin-skeleton s-3"></div>
+          <div class="skeleton pin-skeleton s-1"></div>
+        </div>
       </section>
 
-      <section class="section-wrap flower-section" id="flowers">
-        <div class="section-heading">
+      <hr class="rule" />
+
+      <!-- ================= FLOWERS ================= -->
+      <section class="section shell" id="flowers" aria-labelledby="flowers-title">
+        <div class="section-heading" data-reveal>
           <p class="eyebrow">flower language</p>
-          <h2>Pick a flower. Get a tiny truth.</h2>
+          <h2 id="flowers-title">Pick a flower. Get a tiny&nbsp;truth.</h2>
         </div>
-        <div class="flower-grid" id="flower-grid"></div>
+        <div class="flower-shell" data-reveal style="--reveal-d: 80ms">
+          <div class="flower-rail" id="flower-grid" role="list"></div>
+          <p class="rail-hint" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M2 8h12M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            swipe
+          </p>
+        </div>
       </section>
 
-      <section class="section-wrap compliment-section">
-        <div class="section-heading">
+      <!-- ================= COMPLIMENTS ================= -->
+      <section class="section shell" aria-labelledby="compliments-title">
+        <div class="section-heading" data-reveal>
           <p class="eyebrow">small evidence</p>
-          <h2>Reasons you are nice to have around.</h2>
+          <h2 id="compliments-title">Reasons you are nice to have&nbsp;around.</h2>
         </div>
         <div class="compliment-grid" id="compliment-grid"></div>
       </section>
 
-      <section class="section-wrap scrapbook-section" id="scrapbook">
-        <div class="section-heading">
+      <hr class="rule" />
+
+      <!-- ================= SCRAPBOOK ================= -->
+      <section class="section shell" id="scrapbook" aria-labelledby="scrapbook-title">
+        <div class="section-heading" data-reveal>
           <p class="eyebrow">saved properly</p>
-          <h2>Tiny scrapbook notes.</h2>
+          <h2 id="scrapbook-title">Tiny scrapbook&nbsp;notes.</h2>
         </div>
         <div class="scrapbook" id="scrapbook-grid"></div>
       </section>
 
-      <section class="final-note">
-        <p class="eyebrow">that is the page</p>
-        <h2>Just a small collection for someone who feels special.</h2>
+      <!-- ================= FINALE ================= -->
+      <section class="finale" aria-labelledby="finale-title">
+        <div class="finale-parallax">
+        <article class="postcard" data-reveal style="--reveal-y: 34px">
+          <div class="postcard-head">
+            <div>
+              <p class="eyebrow">that is the page</p>
+              <h2 id="finale-title">
+                Just a small collection for someone who feels special.
+              </h2>
+            </div>
+            <div class="stamp" aria-hidden="true">
+              <svg viewBox="0 0 40 48" fill="none">
+                <circle cx="20" cy="19" r="4.5" fill="#c9a227" />
+                <g stroke="#8f364c" stroke-width="1.3">
+                  <path d="M20 14.5c0-4 2-6.5 5-7-.5 3.5-2 6-5 7Z" fill="#f0a8b4" />
+                  <path d="M20 14.5c0-4-2-6.5-5-7 .5 3.5 2 6 5 7Z" fill="#f0a8b4" />
+                  <path d="M24.5 19c4 0 6.5 2 7 5-3.5-.5-6-2-7-5Z" fill="#f0a8b4" />
+                  <path d="M15.5 19c-4 0-6.5 2-7 5 3.5-.5 6-2 7-5Z" fill="#f0a8b4" />
+                  <path d="M20 23.5c0 4 2 6.5 5 7-.5-3.5-2-6-5-7Z" fill="#f0a8b4" />
+                </g>
+                <path d="M20 30v12" stroke="#8fa37d" stroke-width="1.4" stroke-linecap="round" />
+                <text x="20" y="47" font-size="4.5" fill="#5c1b33" text-anchor="middle" font-family="Jost, sans-serif" letter-spacing="0.5">FOR YOU</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="postcard-lines" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </div>
+
+          <p class="from">best wishes, always &mdash;</p>
+
+          <div class="seal" aria-hidden="true">h</div>
+        </article>
+        </div>
       </section>
     </main>
 
-    <dialog class="memory-dialog" id="memory-dialog">
-      <button class="dialog-close" type="button" aria-label="Close">×</button>
-      <img id="dialog-image" alt="" />
-      <div>
-        <p class="eyebrow" id="dialog-vibe"></p>
-        <h3 id="dialog-title"></h3>
-        <p id="dialog-note"></p>
+    <footer class="site-footer">
+      <p><span>made with care</span> <a href="./admin.html">private editor</a></p>
+    </footer>
+
+    <!-- ================= DIALOG ================= -->
+    <dialog class="memory-dialog" id="memory-dialog" aria-labelledby="dialog-title">
+      <button class="dialog-close" type="button" aria-label="Close">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="dialog-inner">
+        <div class="dialog-grip" aria-hidden="true"></div>
+        <div class="dialog-media">
+          <img id="dialog-image" alt="" decoding="async" />
+        </div>
+        <div class="dialog-copy">
+          <p class="eyebrow" id="dialog-vibe"></p>
+          <h3 id="dialog-title"></h3>
+          <p id="dialog-note"></p>
+          <p class="dialog-poem" id="dialog-poem" hidden></p>
+        </div>
       </div>
     </dialog>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="./config.js"></script>
     <script src="./app.js"></script>
+    <script type="module" src="./motion.js"></script>
   </body>
 </html>

@@ -1,0 +1,24 @@
+# Personal photos never enter the repo — that is the whole point of keeping
+# them in Supabase Storage. Originals go in incoming/, web-ready copies in
+# outgoing/, and neither is tracked.
+incoming/
+outgoing/
+she/
+photos/
+originals/
+
+# Credentials. The service-role key bypasses every RLS policy in
+# supabase/schema.sql — it must never be committed.
+.env
+.env.*
+!.env.example
+
+# Design references, kept locally but not shipped to the deployed site.
+# (Remove this line if you want them in the repo.)
+docs/inspiration/
+
+node_modules/
+.DS_Store
+
+# local-only dev tool for choosing the hero photo
+hero-picker.html

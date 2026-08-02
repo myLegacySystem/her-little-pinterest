@@ -2,79 +2,140 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Admin | Her Little Pinterest</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#1f0a18" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Jost:wght@300..600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
   </head>
+
   <body class="admin-body">
+    <div class="ambient" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
     <main class="admin-shell">
       <section class="admin-panel">
+        <a class="admin-back" href="./index.html">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M14 8H3M7 4 3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          back to the board
+        </a>
+
         <p class="eyebrow">private editor</p>
         <h1>Update her board</h1>
-        <p class="admin-muted">
+        <p class="lede">
           Upload a photo, add a tiny note, choose a flower, and it appears on
           the public page.
         </p>
 
-        <form class="auth-form" id="auth-form">
-          <label for="email">Email</label>
-          <div class="inline-form">
-            <input id="email" name="email" type="email" placeholder="your@email.com" required />
-            <button class="primary-button" type="submit">send login link</button>
+        <!-- ============ sign in ============ -->
+        <form class="auth-form" id="auth-form" novalidate>
+          <div class="field">
+            <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="your@email.com"
+              required
+            />
+            <span class="hint">You'll get a magic link — no password needed.</span>
           </div>
-          <p class="form-status" id="auth-status"></p>
+          <button class="btn" type="submit" id="auth-submit">send login link</button>
+          <p class="form-status" id="auth-status" role="status" aria-live="polite"></p>
         </form>
 
-        <form class="upload-form is-disabled" id="upload-form">
-          <label for="photo">Photo</label>
-          <input id="photo" name="photo" type="file" accept="image/*" required />
+        <!-- ============ upload ============ -->
+        <form class="upload-form is-disabled" id="upload-form" novalidate>
+          <div class="field">
+            <label for="photo">Photo <span class="req" aria-hidden="true">*</span></label>
+            <div class="dropzone" id="dropzone">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 15v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span class="dz-label" id="dz-label">Tap to choose a photo</span>
+              <input
+                id="photo"
+                name="photo"
+                type="file"
+                accept="image/*"
+                required
+                aria-describedby="dz-label"
+              />
+            </div>
+          </div>
 
-          <label for="title">Card title</label>
-          <input
-            id="title"
-            name="title"
-            type="text"
-            maxlength="80"
-            placeholder="main character energy"
-            required
-          />
+          <div class="field">
+            <label for="title">Card title <span class="req" aria-hidden="true">*</span></label>
+            <input
+              id="title"
+              name="title"
+              type="text"
+              maxlength="80"
+              placeholder="main character energy"
+              required
+            />
+          </div>
 
-          <label for="note">Tiny note</label>
-          <textarea
-            id="note"
-            name="note"
-            maxlength="260"
-            placeholder="this photo deserved its own corner"
-            required
-          ></textarea>
+          <div class="field">
+            <label for="note">Tiny note <span class="req" aria-hidden="true">*</span></label>
+            <textarea
+              id="note"
+              name="note"
+              maxlength="260"
+              placeholder="this photo deserved its own corner"
+              required
+            ></textarea>
+            <span class="hint"><span id="note-count">0</span>/260</span>
+          </div>
+
+          <div class="field">
+            <label for="poem">Poem <span class="hint">optional</span></label>
+            <textarea
+              id="poem"
+              name="poem"
+              maxlength="300"
+              rows="3"
+              placeholder="a few short lines&#10;line breaks are kept"
+            ></textarea>
+            <span class="hint">Shown under the note when the card is opened.</span>
+          </div>
 
           <div class="form-grid">
-            <label>
-              Flower
-              <select name="flower">
+            <div class="field">
+              <label for="flower">Flower</label>
+              <select id="flower" name="flower">
                 <option value="Tulip">Tulip</option>
                 <option value="Daisy">Daisy</option>
                 <option value="Peony">Peony</option>
                 <option value="Rose">Rose</option>
                 <option value="Lily">Lily</option>
               </select>
-            </label>
-            <label>
-              Vibe
-              <select name="vibe">
+            </div>
+            <div class="field">
+              <label for="vibe">Vibe</label>
+              <select id="vibe" name="vibe">
                 <option value="soft">soft</option>
                 <option value="iconic">iconic</option>
                 <option value="sunshine">sunshine</option>
                 <option value="pretty chaos">pretty chaos</option>
                 <option value="quietly special">quietly special</option>
               </select>
-            </label>
+            </div>
           </div>
 
           <label class="checkbox-line">
@@ -82,8 +143,8 @@
             Feature this card near the top
           </label>
 
-          <button class="primary-button" type="submit">add to board</button>
-          <p class="form-status" id="upload-status"></p>
+          <button class="btn" type="submit" id="upload-submit">add to board</button>
+          <p class="form-status" id="upload-status" role="status" aria-live="polite"></p>
         </form>
       </section>
     </main>
