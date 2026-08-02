@@ -1,0 +1,4 @@
+# This is a private gift, not a public website. It stays reachable by link,
+# but should not be indexed or appear in image search.
+User-agent: *
+Disallow: /
